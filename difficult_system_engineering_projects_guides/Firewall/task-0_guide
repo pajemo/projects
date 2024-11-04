@@ -1,0 +1,74 @@
+THESE INSRUCTIONS WILL NOT BE SUCCESSFUL IF YOU HAVE NOT DONE THE SSH TASK
+Kindly find instructions to go about it in this repository
+
+Alright, Let’s install the ufw firewall and setup a few rules on web-01.
+BUT FIRST CONNECT TO YOUR WEB-01 SERVER
+OPEN YOUR (UBUNTU 20.04 LTS) SANDBOX
+RUN THE FOLLOWING COMMANDS
+
+	cd /root
+	cd .ssh
+	ls
+	
+//create a shell environment variable that contains information about the new agent instance
+	eval $('ssh-agent')
+//add the private key file for the "school" SSH key pair to the ssh-agent.	
+	ssh-add ~/.ssh/school
+
+
+PLEASE NOTE:
+REPLACE 18.234.168.34 with YOUR OWN IP ADDRESS 
+//connect with your server
+	ssh ubuntu@18.234.168.34
+
+IF YOU HAVE CONNECTED SUCCESSFULLY
+FOLLOWING THE STEPS BELOW:
+
+//Configure ufw so that it blocks all incoming traffic, except the following TCP ports: 22 (SSH) 443 (HTTPS SSL) 80 (HTTP)
+
+//To configure the Uncomplicated Firewall (ufw) to block all incoming traffic except for TCP ports 22, 443, and 80, you can follow these steps:
+
+STILL ON YOUR WEB SERVER
+
+//Check the status of ufw to make sure it is active by running the following command:
+
+	sudo ufw status
+
+//If ufw is not active, you can enable it by running:
+
+	sudo ufw enable
+
+//Set the default outgoing policy to "allow" to allow all outgoing traffic by running the following command:
+	sudo ufw default allow outgoing
+
+//Set the default incoming policy to "deny" to block all incoming traffic by running the following command:
+
+	sudo ufw default deny incoming
+
+//Allow incoming traffic on TCP ports 22, 443, and 80 by running the following commands:
+
+	sudo ufw allow 22/tcp
+	
+	sudo ufw allow 443/tcp
+	
+	sudo ufw allow 80/tcp
+
+//Verify that the rules have been added by running the following command:
+
+	sudo ufw show added
+
+//This should show the three TCP ports that were allowed in the previous step.
+
+//Finally, enable ufw by running:
+
+	sudo ufw enable
+
+//Your ufw configuration should now block all incoming traffic except for the TCP ports 22 (SSH), 443 (HTTPS SSL), and 80 (HTTP)
+
+NOW ON YOUR SANDBOX
+NOT ON YOUR WEB-SERVER
+//Create the respective file name with the right content in the right repository and in the right directory
+git add .
+git commit -m " Block all incoming traffic but"
+git push
+CHECK YOUR CODE
